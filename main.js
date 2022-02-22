@@ -1,3 +1,4 @@
+scoreRightWrist =[];
 function preload() {
 
 }
@@ -14,14 +15,29 @@ poseNet = ml5.poseNet(video, modelLoaded);
 poseNet.on('pose', gotPoses);
 }
 
+
 function modelLoaded() {
   console.log('PoseNet Is Initialized');
 }
 
-function gotPoses(results){
-    console.log(results);
+function gotPoses(results)
+{
+  if(results.length > 0)
+  {
+
+    rightWristY = results[0].pose.rightWrist.y;
+    rightWristX = results[0].pose.rightWrist.x;
+    scoreRightWrist =  results[0].pose.keypoints[10].score;
+  }
 }
 function draw()
 {
+    background(0); 
     image(video,0,0,700,600);
+    if(scoreRightWrist > 0.2)
+    {
+      fill("red");
+      stroke("red");
+      circle(rightWristX, rightWristY, 30);
+    }
 }
