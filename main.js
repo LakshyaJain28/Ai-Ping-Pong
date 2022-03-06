@@ -1,3 +1,4 @@
+game_status="";
 scoreRightWrist =[];
 function preload() {
 
@@ -30,6 +31,14 @@ function gotPoses(results)
     scoreRightWrist =  results[0].pose.keypoints[10].score;
   }
 }
+
+function startGame()
+{
+  game_status = "start";
+  document.getElementById("status").innerHTML = "Game Is Loading";
+}
+
+
 function draw()
 {
     background(0); 
@@ -39,5 +48,9 @@ function draw()
       fill("red");
       stroke("red");
       circle(rightWristX, rightWristY, 30);
+    }
+    if(game_status == "start")
+    {
+      document.getElementById("status").innerHTML = "Game Is Loaded";
     }
 }
